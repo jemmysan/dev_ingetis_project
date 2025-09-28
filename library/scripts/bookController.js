@@ -95,7 +95,7 @@ function message(text, isSuccess) {
 
     setTimeout(() => {
         notification.remove();
-    }, 5000);
+    }, 2000);
 }
 
 // ==============================

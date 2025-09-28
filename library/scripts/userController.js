@@ -6,6 +6,29 @@ let utilisateurASupprimerId = null;
 let utilisateurASupprimerNom = null;
 let utilisateurEnCoursModification = null;
 
+
+
+// =====================================
+// Chargements des des utilisateurs
+//====================================
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    chargerUtilisateur();
+    afficherUtilisateurs();
+})
+
+function chargerUtilisateur (){
+     const data = localStorage.getItem('Bibliotheque');
+    if (data) {
+        try {
+            const savedData = JSON.parse(data);
+            Object.assign(Bibliotheque, savedData);
+        } catch (error) {
+            console.error('Erreur lors du chargement des données:', error);
+        }
+    }
+}
+
 // ==============================
 // GESTION DES MODALS UTILISATEUR
 // ==============================
@@ -186,7 +209,6 @@ function afficherUtilisateurs() {
 
     container.innerHTML = Bibliotheque.utilisateurs.map(utilisateur => `
         <tr class="border-b hover:bg-gray-50">
-            <td class="px-6 py-4 font-mono text-sm">#${utilisateur.id}</td>
             <td class="px-6 py-4 font-medium">${utilisateur.nom}</td>
             <td class="px-6 py-4">${utilisateur.email}</td>
             <td class="px-6 py-4">${utilisateur.telephone}</td>

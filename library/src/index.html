@@ -13,6 +13,8 @@
 <body class="bg-gray-50">
     <!-- Header -->
     <header class="bg-blue-600 text-white shadow-lg">
+       
+        
         <div class="container mx-auto px-4 py-6">
             <div class="flex justify-between items-center">
                 <h1 class="text-3xl font-bold">
@@ -121,25 +123,27 @@
         <section id="livres" class="section hidden">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold">Gestion des Livres</h2>
-                <button onclick="ouvrirModalAjoutLivre()"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-                    <i class="fas fa-plus mr-2"></i>Ajouter un Livre
-                </button>
+               
             </div>
 
             <!-- Barre de recherche -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-                <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex flex-col justify-between md:flex-row gap-4">
                     <input type="text" id="recherche-livre" placeholder="Rechercher par titre, auteur, genre..."
-                        class="flex-1 p-3 border border-gray-300 rounded-lg">
-                    <select id="filtre-genre" class="p-3 border border-gray-300 rounded-lg">
+                        class="p-3 border border-gray-300 rounded-lg w-[30%]">
+                    <!-- <select id="filtre-genre" class="p-3 border border-gray-300 rounded-lg">
                         <option value="">Tous les genres</option>
-                        <!-- Options générées dynamiquement -->
-                    </select>
-                    <button onclick="rechercherLivres()"
+                         Options générées dynamiquement 
+                    </select> -->
+                    <!-- <button onclick="rechercherLivres()"
                         class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition">
                         <i class="fas fa-search mr-2"></i>Rechercher
-                    </button>
+                    </button> -->
+
+                     <button onclick="ouvrirModalAjoutLivre()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                    <i class="fas fa-plus mr-2"></i>Ajouter un Livre
+                </button>
                 </div>
             </div>
 
@@ -163,7 +167,7 @@
                 <table class="min-w-full">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-6 py-3 text-left">ID</th>
+                            <!-- <th class="px-6 py-3 text-left">ID</th> -->
                             <th class="px-6 py-3 text-left">Nom</th>
                             <th class="px-6 py-3 text-left">Email</th>
                             <th class="px-6 py-3 text-left">Téléphone</th>
