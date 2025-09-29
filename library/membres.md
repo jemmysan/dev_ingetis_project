@@ -1,3 +1,0 @@
-- GHAZALY MOUSSA
-- Abdou Aziz BA
-- Jean Malick MENDY
