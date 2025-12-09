@@ -32,7 +32,6 @@ export const POST = handleApi(async (request) => {
 // ------- PUT -------
 export const PUT = handleApi(async (request) => {
   const body = await request.json();
-
   const col = await getCollection("services");
   const updated = await col.findOneAndUpdate(
     { _id: new ObjectId(body.id) },
@@ -56,6 +55,7 @@ export const PUT = handleApi(async (request) => {
 // ------- DELETE -------
 export const DELETE = handleApi(async (request) => {
   const id = new URL(request.url).searchParams.get("id");
+ 
 
   const col = await getCollection("services");
 

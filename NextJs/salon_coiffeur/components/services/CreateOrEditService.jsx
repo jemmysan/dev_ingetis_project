@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { UploadImages } from "../ui/UploadImages";
 
-export default function CreateService({ initialData, onSubmit, onClose }) {
+export default function CreateOrEditService({
+  initialData,
+  onSubmit,
+  onClose,
+}) {
   const [formData, setFormData] = useState(() => ({
+    id: initialData?._id,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
     image: initialData?.image ?? null,
@@ -50,13 +55,14 @@ export default function CreateService({ initialData, onSubmit, onClose }) {
 
         <UploadImages
           value={formData.image}
-          onChange={(img) =>
-            setFormData((prev) => ({ ...prev, image: img }))
-          }
+          onChange={(img) => setFormData((prev) => ({ ...prev, image: img }))}
         />
 
         <button
-          className="bg-gray-900 text-white px-4 py-2 rounded"
+          className="bg-gray-700 text-white px-4 py-2 rounded 
+               transition duration-300 
+               hover:bg-gray-900 hover:shadow-lg 
+               active:scale-95"
           type="submit"
         >
           {initialData ? "Mettre à jour" : "Créer"}

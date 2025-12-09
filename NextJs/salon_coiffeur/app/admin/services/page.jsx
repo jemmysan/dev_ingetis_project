@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useServices } from "@/hooks/useServices";
-import CreateService from "@/components/services/CreateService";
 import { DeleteConfirmModal } from "@/components/ui/DeleteConfirmModal";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { TiEdit } from "react-icons/ti";
+import CreateOrEditService from "@/components/services/CreateOrEditService";
 
 export default function ServicesPage() {
   const { data: services, loading, create, update, remove } = useServices();
@@ -22,8 +24,8 @@ export default function ServicesPage() {
   };
 
   const handleEdit = async (payload) => {
-    console.log(payload);
-    // await update(payload);
+    // console.log(payload);
+    await update(payload);
     setEditing(null);
     setOpenForm(false);
   };
@@ -37,7 +39,10 @@ export default function ServicesPage() {
             setEditing(null);
             setOpenForm(true);
           }}
-          className="bg-gray-900 text-white px-4 py-2 rounded"
+          className="bg-gray-700 text-white px-4 py-2 rounded 
+               hover:transition duration-300 
+               hover:bg-gray-900 hover:shadow-lg 
+               active:scale-95"
         >
           + Ajouter
         </button>
@@ -52,11 +57,11 @@ export default function ServicesPage() {
 
       <div className="bg-white rounded shadow overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-100">
+          <thead className="bg-gray-100 ">
             <tr>
-              <th className="p-3">Service</th>
-              <th className="p-3">Description</th>
-              <th className="p-3">Actions</th>
+              <th className="p-3 text-left">Service</th>
+              <th className="p-3 text-left">Description</th>
+              <th className="p-3 text-left"></th>
             </tr>
           </thead>
           <tbody>
@@ -107,9 +112,9 @@ export default function ServicesPage() {
                         setEditing(s);
                         setOpenForm(true);
                       }}
-                      className="text-blue-600 mr-3"
+                      className="text-blue-600 mr-3 text-xl  hover:bg-blue-100 p-2 rounded-lg"
                     >
-                      Modifier
+                      <TiEdit  />
                     </button>
 
                     <button
@@ -117,9 +122,9 @@ export default function ServicesPage() {
                         setToDelete(s);
                         setDeleteOpen(true);
                       }}
-                      className="text-red-600"
+                      className="text-red-600 text-xl  hover:bg-red-100 p-2 rounded-lg "
                     >
-                      Supprimer
+                      <RiDeleteBinLine />
                     </button>
                   </td>
                 </tr>
@@ -133,11 +138,11 @@ export default function ServicesPage() {
       {openForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded p-6 max-w-lg w-full">
-            <CreateService
+            <CreateOrEditService
               initialData={editing}
               submitLabel={editing ? "Enregistrer" : "Créer"}
               onSubmit={editing ? handleEdit : handleCreate}
-              onClose={() => setOpenForm(false)} // ← ici
+              onClose={() => setOpenForm(false)}
             />
           </div>
         </div>

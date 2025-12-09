@@ -8,7 +8,7 @@ export default function AdminLayout({ children }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-full bg-gray-100">
+    <div className="flex h-full w-full bg-gray-100">
 
       {/* Sidebar desktop */}
       <div className="hidden md:block">
@@ -29,7 +29,7 @@ export default function AdminLayout({ children }) {
       </div>
 
       {/* Contenu */}
-      <main className="flex-1 overflow-y-auto p-6 relative">
+      <main className="flex-1  p-6 relative">
         {/* Bouton hamburger mobile */}
         <button
           onClick={() => setOpen(true)}

@@ -40,7 +40,8 @@ useEffect(() => {
     });
     const updated = await res.json();
     setData((d) => d.map((it) => (it.id === updated.id ? updated : it)));
-    return updated;
+    // console.log(data);
+    return updated;  
   };
 
   const remove = async (id) => {

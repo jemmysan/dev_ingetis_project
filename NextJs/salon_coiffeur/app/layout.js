@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
     <Navbar />
 
     {/* Zone qui ne doit JAMAIS dépasser */}
-    <main className="flex-1 overflow-y-auto overflow-x-hidden">
+    <main className="flex-1 overflow-y-auto overflow-x-hidden ">
       {children}
     </main>
 
