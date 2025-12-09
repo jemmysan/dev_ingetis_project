@@ -22,7 +22,8 @@ export default function ServicesPage() {
   };
 
   const handleEdit = async (payload) => {
-    await update(payload);
+    console.log(payload);
+    // await update(payload);
     setEditing(null);
     setOpenForm(false);
   };
@@ -59,39 +60,71 @@ export default function ServicesPage() {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((s) => (
-              <tr key={s.id} className="border-b">
-                <td className="p-3 flex items-center gap-3">
-                  <img
-                    src={s.image}
-                    className="w-10 h-10 rounded-full object-cover"
-                    alt=""
-                  />
-                  <div>{s.name}</div>
-                </td>
-                <td className="p-3">{s.description?.slice(0, 80)}</td>
-                <td className="p-3">
-                  <button
-                    onClick={() => {
-                      setEditing(s);
-                      setOpenForm(true);
-                    }}
-                    className="text-blue-600 mr-3"
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => {
-                      setToDelete(s);
-                      setDeleteOpen(true);
-                    }}
-                    className="text-red-600"
-                  >
-                    Supprimer
-                  </button>
+            {/* Skeleton pendant le chargement */}
+            {loading ? (
+              [...Array(4)].map((_, i) => (
+                <tr key={i} className="border-b animate-pulse">
+                  <td className="p-3 flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
+                    <div className="h-4 w-32 bg-gray-300 rounded"></div>
+                  </td>
+
+                  <td className="p-3">
+                    <div className="h-4 w-64 bg-gray-300 rounded"></div>
+                  </td>
+
+                  <td className="p-3">
+                    <div className="h-4 w-20 bg-gray-300 rounded mb-2"></div>
+                    <div className="h-4 w-20 bg-gray-300 rounded"></div>
+                  </td>
+                </tr>
+              ))
+            ) : filtered.length === 0 ? (
+              // Aucun résultat
+              <tr>
+                <td colSpan="3" className="p-6 text-center text-gray-500">
+                  Aucun service ajouté.
                 </td>
               </tr>
-            ))}
+            ) : (
+              // Résultats normaux
+              filtered.map((s) => (
+                <tr key={s.id} className="border-b">
+                  <td className="p-3 flex items-center gap-3">
+                    <img
+                      src={s.image}
+                      className="w-10 h-10 rounded-full object-cover"
+                      alt=""
+                    />
+                    <div>{s.name}</div>
+                  </td>
+
+                  <td className="p-3">{s.description?.slice(0, 80)}</td>
+
+                  <td className="p-3">
+                    <button
+                      onClick={() => {
+                        setEditing(s);
+                        setOpenForm(true);
+                      }}
+                      className="text-blue-600 mr-3"
+                    >
+                      Modifier
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setToDelete(s);
+                        setDeleteOpen(true);
+                      }}
+                      className="text-red-600"
+                    >
+                      Supprimer
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

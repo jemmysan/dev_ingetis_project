@@ -1,39 +1,65 @@
-// app/api/services/route.js
-let services = [
-  { id: "1", name: "Coupe Homme", description: "Coupe moderne", image: "/images/coupe1.jpg" },
-  { id: "2", name: "Coloration", description: "Balayage et mèches", image: "/images/color1.jpg" }
-];
-
 import { NextResponse } from "next/server";
-import { v4 as uuidv4 } from "uuid";
+import { getCollection } from "@/db/db";
+import { ObjectId } from "mongodb";
+import { handleApi } from "@/lib/handleApi";
 
-export async function GET(request) {
-  return NextResponse.json(services);
-}
+// ============ GET ALL ============
 
-export async function POST(request) {
+export const GET = handleApi(async () => {
+  const col = await getCollection("services");
+  const items = await col.find().sort({ _id: -1 }).toArray();
+
+  return NextResponse.json(items.map((s) => ({ ...s, id: s._id })));
+});
+
+// ------- POST -------
+export const POST = handleApi(async (request) => {
   const body = await request.json();
+  const col = await getCollection("services");
+
   const item = {
-    id: uuidv4(),
-    name: body.name || "Service",
+    name: body.name || "",
     description: body.description || "",
-    image: body.image || null
+    image: body.image || null,
+    createdAt: new Date(),
   };
-  services.unshift(item);
-  return NextResponse.json(item);
-}
 
-export async function PUT(request) {
+  const result = await col.insertOne(item);
+
+  return NextResponse.json({ ...item, id: result.insertedId });
+});
+
+// ------- PUT -------
+export const PUT = handleApi(async (request) => {
   const body = await request.json();
-  const idx = services.findIndex((s) => s.id === body.id);
-  if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  services[idx] = { ...services[idx], ...body };
-  return NextResponse.json(services[idx]);
-}
 
-export async function DELETE(request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-  services = services.filter((s) => s.id !== id);
+  const col = await getCollection("services");
+  const updated = await col.findOneAndUpdate(
+    { _id: new ObjectId(body.id) },
+    {
+      $set: {
+        name: body.name,
+        description: body.description,
+        image: body.image,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  if (!updated) {
+    return NextResponse.json({ error: "Service introuvable" }, { status: 404 });
+  }
+
+  return NextResponse.json({ ...updated, id: updated._id });
+});
+
+// ------- DELETE -------
+export const DELETE = handleApi(async (request) => {
+  const id = new URL(request.url).searchParams.get("id");
+
+  const col = await getCollection("services");
+
+  await col.deleteOne({ _id: new ObjectId(id) });
+
   return NextResponse.json({ ok: true });
-}
+});

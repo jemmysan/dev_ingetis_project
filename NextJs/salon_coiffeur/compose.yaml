@@ -17,6 +17,6 @@ services:
           target: /app
           action : sync
     environment : 
-      - DB_URL=mongodb+srv://jemmy-ingetis-project:Jemmy@ingetisproject_db_26@app-database.xjtv4qh.mongodb.net/?appName=app-database
+      - DB_URL=mongodb+srv://jemmy1399:jemmy_atlas_password@app-database.xjtv4qh.mongodb.net/base_app_db?retryWrites=true&w=majority&appName=app-database
 volumes:
   tasked : 
