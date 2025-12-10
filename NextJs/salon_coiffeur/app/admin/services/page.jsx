@@ -39,10 +39,7 @@ export default function ServicesPage() {
             setEditing(null);
             setOpenForm(true);
           }}
-          className="bg-gray-700 text-white px-4 py-2 rounded 
-               hover:transition duration-300 
-               hover:bg-gray-900 hover:shadow-lg 
-               active:scale-95"
+          className="bg-gray-700 text-white px-4 py-2 rounded hover:transition duration-300  hover:bg-gray-900 hover:shadow-lg active:scale-95"
         >
           + Ajouter
         </button>
