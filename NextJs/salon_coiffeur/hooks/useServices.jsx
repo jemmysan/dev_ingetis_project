@@ -5,21 +5,20 @@ export function useServices() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-const fetchAll = useCallback(async () => {
-  const res = await fetch("/api/services");
-  const json = await res.json();
-  setData(json);
-}, []);
+  const fetchAll = useCallback(async () => {
+    const res = await fetch("/api/services");
+    const json = await res.json();
+    setData(json);
+  }, []);
 
-useEffect(() => {
-  // wrap in async IIFE to avoid calling setState synchronously
-  (async () => {
-    setLoading(true);
-    await fetchAll();
-    setLoading(false);
-  })();
-}, [fetchAll]);
-
+  useEffect(() => {
+    // wrap in async IIFE to avoid calling setState synchronously
+    (async () => {
+      setLoading(true);
+      await fetchAll();
+      setLoading(false);
+    })();
+  }, [fetchAll]);
 
   const create = async (payload) => {
     const res = await fetch("/api/services", {
@@ -41,7 +40,7 @@ useEffect(() => {
     const updated = await res.json();
     setData((d) => d.map((it) => (it.id === updated.id ? updated : it)));
     // console.log(data);
-    return updated;  
+    return updated;
   };
 
   const remove = async (id) => {

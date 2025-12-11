@@ -4,7 +4,7 @@ import { useServices } from "@/hooks/useServices";
 import { DeleteConfirmModal } from "@/components/ui/DeleteConfirmModal";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
-import CreateOrEditService from "@/components/services/CreateOrEditService";
+import CreateOrEditService from "@/components/forms/ServiceForm";
 
 export default function ServicesPage() {
   const { data: services, loading, create, update, remove } = useServices();
